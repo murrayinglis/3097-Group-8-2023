@@ -1,4 +1,6 @@
-function gcc_test2(x,y)
+function gcc_test3(x,y)
+
+Fs = 100000;
 
 % Mic positions
 mic1 = [0, 0];
@@ -17,61 +19,56 @@ d3 = sqrt((sp(1) - mic3(1))^2 + (sp(2) - mic3(2))^2);
 d4 = sqrt((sp(1) - mic4(1))^2 + (sp(2) - mic4(2))^2);
 
 
-% Define time vector 't' and signal frequency
-Fs = 100000;
-t = linspace(0, 1, Fs); 
-signal_frequency = 1000; 
-%ref = sin(2 * pi * signal_frequency * t);
-
 % Calculating delays
 t1 = (d1 / 343);
 t2 = (d2 / 343);
 t3 = (d3 / 343);
 t4 = (d4 / 343);
+delays = round([t1*Fs,t2*Fs,t3*Fs,t4*Fs]);
 
+% Signal constants
+t = 0:1/Fs:0.1;
+f = 10000; 
+signal = sin(2 * pi * f * t);
 
-% Initialize the signals as zeros
-sig1 = zeros(size(t));
-sig2 = zeros(size(t));
-sig3 = zeros(size(t));
-sig4 = zeros(size(t));
+% Adding delay to signals
+signals = zeros(4,length(signal)+max(delays));
+for i = 1:4
+    signals(i, delays(i)+1:delays(i)+length(signal)) = signal;
+end
 
-% Define signals with delay
-sig1(t >= t1) = sin(2 * pi * signal_frequency * (t(t >= t1) - t1));
-sig2(t >= t2) = sin(2 * pi * signal_frequency * (t(t >= t2) - t2));
-sig3(t >= t3) = sin(2 * pi * signal_frequency * (t(t >= t3) - t3));
-sig4(t >= t4) = sin(2 * pi * signal_frequency * (t(t >= t4) - t4));
+% Adding noise to signals
+signals = signals + 0.05*randn(size(signals));
+sig1 = signals(1,:);
+sig2 = signals(2,:);
+sig3 = signals(3,:);
+sig4 = signals(4,:);
 
+% Plotting signals
+t = 0:1/Fs:0.1+max(delays)/Fs;
+figure(1);
+plot(t,signals(1,:))
+hold on
+plot(t,signals(2,:))
+plot(t,signals(3,:))
+plot(t,signals(4,:))
 
-%plot(t,sig1)
-%hold on
-%plot(t,sig2)
-%plot(t,sig3)
-%plot(t,sig4)
-%hold off
+% Calculating time delays from xcorr
+time_diffs = zeros(1,3);
+for i = 2:4
+    [cross_corr,lags]=xcorr(signals(1,:),signals(i,:));
+    [~,idx]=max(cross_corr);
+    time_diffs(i-1)=lags(idx)/Fs;
+end
 
-%sig1 = transpose(sig1);
-%sig2 = transpose(sig2);
-%sig3 = transpose(sig3);
-%sig4 = transpose(sig4);
+td12 = time_diffs(1);
+td13 = time_diffs(2);
+td14 = time_diffs(3);
 
+td12 = gcc(sig1,sig2,Fs);
+td13 = gcc(sig1,sig3,Fs);
+td14 = gcc(sig1,sig4,Fs);
 
-% Time delay calculations
-td12 = gcc1(sig1,sig2,Fs)
-td13 = gcc1(sig1,sig3,Fs)
-td14 = gcc1(sig1,sig4,Fs)
-
-td12_actual = t1-t2
-td13_actual = t1-t3
-td14_actual = t1-t4
-
-
-% Equations to solve
-
-% Test hyperbolas (gives real answer)
-%eq1 = @(x, y) td12_actual * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic2(1)).^2 + (y - mic2(2)).^2));
-%eq2 = @(x, y) td13_actual * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic3(1)).^2 + (y - mic3(2)).^2));
-%eq3 = @(x, y) td14_actual * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic4(1)).^2 + (y - mic4(2)).^2));
 
 % Actual hyperbolas to solve
 eq1 = @(x, y) td12 * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic2(1)).^2 + (y - mic2(2)).^2));
@@ -80,7 +77,7 @@ eq3 = @(x, y) td14 * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mi
 
 
 % Use a numerical solver to find the intersection points
-initial_guess = [40, 15];  % Initial guess for the intersection point
+initial_guess = [0, 0];  % Initial guess for the intersection point
 options = optimset('Display', 'off');  % Suppress solver output
 
 [x1, y1] = fsolve(@(xy) [eq1(xy(1), xy(2)), eq2(xy(1), xy(2)), eq3(xy(1), xy(2))], initial_guess, options);
@@ -107,8 +104,8 @@ Z1 = eq1(X, Y);
 Z2 = eq2(X, Y);
 Z3 = eq3(X, Y);
 
-% Create a new figure for plotting
-figure;
+% Create a new figure for plotting hyperbolas
+figure(2);
 
 % Plot the equations eq1, eq2, and eq3
 contour(X, Y, Z1, [0, 0], 'g-', 'LineWidth', 1.5);
@@ -130,28 +127,15 @@ plot(sp(1),sp(2),'rx', 'MarkerSize', 10, 'LineWidth', 2, 'Color', [0,0,0]);
 % Add labels and legend
 xlabel('X-coordinate');
 ylabel('Y-coordinate');
-title('Acoustic Triangualtion');
+title('Acoustic Triangulation');
 legend('eq1', 'eq2', 'eq3', 'Microphones', 'Estimated Source', 'Actual Source');
 
 
 hold off;
 
-
 end
-
-
 
 function time_delay = gcc(sig1, sig2, Fs)
-cross_corr = xcorr(sig1, sig2);
-normalized_cross_corr = abs(cross_corr) / max(abs(cross_corr));
-
-[max_corr_value, max_corr_index] = max(normalized_cross_corr);
-
-time_delay = ((max_corr_index - 1) - (numel(sig1) - 1)) / Fs;
-
-end
-
-function time_delay = gcc1(sig1, sig2, Fs)
 [cross_corr, lags] = xcorr(sig1, sig2);
 [~, val] = max(cross_corr);
 time_delay = lags(val)/Fs;
