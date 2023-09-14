@@ -1,0 +1,83 @@
+<mxfile host="app.diagrams.net" modified="2023-08-18T16:47:42.489Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36" etag="RuzIcBJjMTYA20fEQV3D" version="21.6.8" type="device">
+  <diagram name="Page-1" id="5ZFrOvfBEXKitR5gyk5j">
+    <mxGraphModel dx="1050" dy="566" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p9IVrrNGiZ01llipTuJL-26" value="Signal Acquisition" style="swimlane;startSize=20;horizontal=1;containerType=tree;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="1">
+          <mxGeometry x="60" y="162" width="740" height="588" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-1" value="&lt;b&gt;&lt;u&gt;Microphone 1&lt;/u&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="250" y="118" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-2" value="&lt;b&gt;&lt;u&gt;Microphone 2&lt;/u&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="250" y="228" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-3" value="&lt;b&gt;&lt;u&gt;Microphone 4&lt;/u&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="250" y="458" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-4" value="&lt;b&gt;&lt;u&gt;Microphone 3&lt;/u&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="250" y="338" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-5" value="&lt;b&gt;&lt;u&gt;Raspberry pi 1&lt;/u&gt;&lt;/b&gt;&lt;br&gt;Sample the audio signal from microphones and process the signal data." style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="560" y="148" width="112" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-6" value="&lt;b&gt;&lt;u&gt;Raspberry pi 2&lt;/u&gt;&lt;/b&gt;&lt;br&gt;Sample the audio signal from microphones and process the signal data." style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="560" y="378" width="112" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-8" value="I2S communication protocol" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-1">
+          <mxGeometry x="0.1297" y="17" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="228" as="sourcePoint" />
+            <mxPoint x="560" y="178" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-9" value="I2S communication protocol" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="0.0237" y="-31" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="503" as="sourcePoint" />
+            <mxPoint x="560" y="418" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-10" value="I2S communication protocol" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-2">
+          <mxGeometry x="0.0527" y="-31" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="370" y="178" as="sourcePoint" />
+            <mxPoint x="560" y="208" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-16" value="Raspberry pi synchronization" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-6" target="p9IVrrNGiZ01llipTuJL-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="570" y="348" as="sourcePoint" />
+            <mxPoint x="620" y="298" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-19" value="I2S communication protocol" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-4" target="p9IVrrNGiZ01llipTuJL-6">
+          <mxGeometry x="0.027" y="16" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="398" as="sourcePoint" />
+            <mxPoint x="610" y="348" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-34" target="p9IVrrNGiZ01llipTuJL-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-38" value="Microphones record input audio source" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-34" target="p9IVrrNGiZ01llipTuJL-2">
+          <mxGeometry x="0.25" y="58" relative="1" as="geometry">
+            <mxPoint x="-30" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-34" target="p9IVrrNGiZ01llipTuJL-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="p9IVrrNGiZ01llipTuJL-26" source="p9IVrrNGiZ01llipTuJL-34" target="p9IVrrNGiZ01llipTuJL-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p9IVrrNGiZ01llipTuJL-34" value="&lt;b&gt;&lt;u&gt;Sound Source&lt;/u&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="p9IVrrNGiZ01llipTuJL-26">
+          <mxGeometry x="10" y="268" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
