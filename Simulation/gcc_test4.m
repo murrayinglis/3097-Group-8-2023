@@ -1,4 +1,4 @@
-function gcc_test3(x,y)
+function gcc_test4(x,y)
 
 Fs = 100000;
 
@@ -32,34 +32,34 @@ f = 10000;
 signal = sin(2 * pi * f * t);
 
 % Adding delay to signals
-signals = zeros(4,length(signal));
+signals = zeros(4,length(signal)+max(delays));
 for i = 1:4
     signals(i, delays(i)+1:delays(i)+length(signal)) = signal;
 end
 
 % Adding noise to signals
 signals = signals + 0.05*randn(size(signals));
+sig1 = signals(1,:);
+sig2 = signals(2,:);
+sig3 = signals(3,:);
+sig4 = signals(4,:);
 
 % Plotting signals
+t = 0:1/Fs:0.1+max(delays)/Fs;
 figure(1);
-length(t)+max(dela)
-length(signals(1,:))
-%plot(t,signals(1,:))
+plot(t,signals(1,:))
+hold on
+plot(t,signals(2,:))
+plot(t,signals(3,:))
+plot(t,signals(4,:))
 
-% Calculating time delays from xcorr
-time_diffs = zeros(1,3);
-for i = 2:4
-    [cross_corr,lags]=xcorr(signals(1,:),signals(i,:));
-    [~,idx]=max(cross_corr);
-    time_diffs(i-1)=lags(idx)/Fs;
-end
-
-td12 = time_diffs(1);
-td13 = time_diffs(2);
-td14 = time_diffs(3);
+% Calculating time delays from gcc
+td12 = gcc(sig1,sig2,Fs);
+td13 = gcc(sig1,sig3,Fs);
+td14 = gcc(sig1,sig4,Fs);
 
 
-% Actual hyperbolas to solve
+% Hyperbolas to solve
 eq1 = @(x, y) td12 * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic2(1)).^2 + (y - mic2(2)).^2));
 eq2 = @(x, y) td13 * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic3(1)).^2 + (y - mic3(2)).^2));
 eq3 = @(x, y) td14 * 343 - (sqrt((x-mic1(1)).^2 + (y-mic1(2)).^2) - sqrt((x - mic4(1)).^2 + (y - mic4(2)).^2));
@@ -116,10 +116,17 @@ plot(sp(1),sp(2),'rx', 'MarkerSize', 10, 'LineWidth', 2, 'Color', [0,0,0]);
 % Add labels and legend
 xlabel('X-coordinate');
 ylabel('Y-coordinate');
-title('Acoustic Triangualtion');
+title('Acoustic Triangulation');
 legend('eq1', 'eq2', 'eq3', 'Microphones', 'Estimated Source', 'Actual Source');
 
 
 hold off;
+
+end
+
+function time_delay = gcc(sig1, sig2, Fs)
+[cross_corr, lags] = xcorr(sig1, sig2);
+[~, val] = max(cross_corr);
+time_delay = lags(val)/Fs;
 
 end

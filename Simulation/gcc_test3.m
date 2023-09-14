@@ -39,6 +39,10 @@ end
 
 % Adding noise to signals
 signals = signals + 0.05*randn(size(signals));
+sig1 = signals(1,:);
+sig2 = signals(2,:);
+sig3 = signals(3,:);
+sig4 = signals(4,:);
 
 % Plotting signals
 t = 0:1/Fs:0.1+max(delays)/Fs;
@@ -60,6 +64,10 @@ end
 td12 = time_diffs(1);
 td13 = time_diffs(2);
 td14 = time_diffs(3);
+
+td12 = gcc(sig1,sig2,Fs);
+td13 = gcc(sig1,sig3,Fs);
+td14 = gcc(sig1,sig4,Fs);
 
 
 % Actual hyperbolas to solve
@@ -124,5 +132,12 @@ legend('eq1', 'eq2', 'eq3', 'Microphones', 'Estimated Source', 'Actual Source');
 
 
 hold off;
+
+end
+
+function time_delay = gcc(sig1, sig2, Fs)
+[cross_corr, lags] = xcorr(sig1, sig2);
+[~, val] = max(cross_corr);
+time_delay = lags(val)/Fs;
 
 end
