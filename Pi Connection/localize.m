@@ -33,14 +33,14 @@ sig3(1:0.03*Fs)=0;
 sig4(1:0.03*Fs)=0;
 
 %t=t(15*Fs:end);
-signal1=sig1(18*Fs:end);
-signal2=sig2(18*Fs:end);
-signal3=sig3(18*Fs:end);
-signal4=sig4(18*Fs:end);
-signal5=sig1(2*Fs:18*Fs);
-signal6=sig2(2*Fs:18*Fs);
-signal7=sig3(2*Fs:18*Fs);
-signal8=sig4(2*Fs:18*Fs);
+signal1=sig1(15*Fs:end);
+signal2=sig2(15*Fs:end);
+signal3=sig3(15*Fs:end);
+signal4=sig4(15*Fs:end);
+signal5=sig1(1:15*Fs);
+signal6=sig2(1:15*Fs);
+signal7=sig3(1:15*Fs);
+signal8=sig4(1:15*Fs);
 
 td56 = gcc(signal5,signal6,Fs)
 td57 = gcc(signal5,signal7,Fs)

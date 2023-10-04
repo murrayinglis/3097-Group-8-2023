@@ -19,8 +19,8 @@ set plink_path=C:\Program Files\PuTTY\plink.exe
 
 REM Execute the SSH command
 
-start "" "%plink_path%" -ssh %remote_user1%@%remote_host1% -pw %remote_password1% "arecord -D plughw:0 -c 2 -r 64000 -f S32_LE -t wav -V stereo -v /home/design/pi1.wav -d 35"
-start "" "%plink_path%" -ssh %remote_user2%@%remote_host2% -pw %remote_password2% "arecord -D plughw:0 -c 2 -r 64000 -f S32_LE -t wav -V stereo -v /home/design/pi2.wav -d 35"
+start "" "%plink_path%" -ssh %remote_user1%@%remote_host1% -pw %remote_password1% "python master_start.py"
+start "" "%plink_path%" -ssh %remote_user2%@%remote_host2% -pw %remote_password2% "python slave.py"
 
 :: Check the exit code to see if the transfer was successful
 if %errorlevel% equ 0 (
