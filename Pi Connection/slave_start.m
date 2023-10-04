@@ -1,0 +1,1 @@
+system(['C:\Users\user\Desktop\UCT 2023\EEE3097S DESIGN\3097-Group-8-2023\Pi Connection\slave_start.bat']);
