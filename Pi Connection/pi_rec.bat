@@ -2,13 +2,13 @@
 setlocal
 
 :: Define variables
-set remote_host1=192.168.101.144
+set remote_host1=raspberrypi
 set remote_user1=design
 set remote_password1=design
 set remote_path1=/home/design/pi1.wav
 set local_path1=pi1.wav
 
-set remote_host2=192.168.101.102
+set remote_host2=design
 set remote_user2=design
 set remote_password2=uct1
 set remote_path2=/home/design/pi2.wav
